@@ -1,2 +1,13 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<h1>投稿一覧</h1>
+
+<% @tasks.each do |task| %>
+  <div><%= task.title %></div>
+  <div><%= task.content %></div>
+
+  <div>
+    <%= link_to '確認', task_path(task.id), class: "btn btn-default" %>
+    <%= link_to '編集', edit_task_path(task.id), class: "btn btn-info" %>
+    <%= link_to '削除', task, class: "btn btn-danger", method: :delete, data: { confirm: '削除してもいいですか？' } %>
+  </div>
+
+<% end %>
