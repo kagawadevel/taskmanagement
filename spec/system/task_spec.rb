@@ -5,9 +5,9 @@ RSpec.describe Task, type: :system do
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
       it '作成済みのタスクが表示されること' do
-        task = FactoryBot.create(:task)
+        task = FactoryBot.create(:task, title: 'task')
         visit tasks_path
-        expect(page).to have_contet 'test_title'
+        expect(page).to have_content 'task'
       end
     end
   end
