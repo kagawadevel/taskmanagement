@@ -14,13 +14,28 @@ RSpec.describe Task, type: :system do
 
   describe 'タスク登録画面' do
     context '必要項目を入力して、createボタンを押した場合' do
-      it 'データが保存されること'
+      it 'データが保存されること' do
+        visit new_task_path
+        fill_in 'task_title', with: 'testtask01'
+        fill_in 'task_content', with: 'testtesttest'
+        click_on 'Create Task'
+        expect(page).to have_content 'testtask01'
+        expect(page).to have_content 'testtesttest'
+      end
     end
   end
 
   describe 'タスク詳細画面' do
      context '任意のタスク詳細画面に遷移した場合' do
-       it '該当タスクの内容が表示されたページに遷移すること'
+       it '該当タスクの内容が表示されたページに遷移すること' do
+         visit new_task_path
+         task = Task.create!(title: 'test_title01', content: 'test_content02')
+
+         visit task_path(task.id)
+         expect(page).to have_content 'test_title01'
+         expect(page).to have_content 'test_content02'
+       end
      end
   end
+
 end
