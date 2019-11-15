@@ -1,9 +1,14 @@
-user
-  name string
-  email string
-  password_digest string
 
-task
-  title string
-  content text
-  user_id string
+|  USERモデル  |    |
+| ---- | ---- |
+|  id  |    |
+|  name  |  string  |
+|  email  | string  |
+|  password_digest  |  string  |
+
+
+|  TASKモデル  |    |
+| ---- | ---- |
+|  id  |    |
+|  title  |  string  |
+|  content  | text |
