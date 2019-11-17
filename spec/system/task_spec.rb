@@ -18,7 +18,7 @@ RSpec.describe Task, type: :system do
         visit new_task_path
         fill_in 'task_title', with: 'testtask01'
         fill_in 'task_content', with: 'testtesttest'
-        click_on 'Create Task'
+        click_on '登録する'
         expect(page).to have_content 'testtask01'
         expect(page).to have_content 'testtesttest'
       end
