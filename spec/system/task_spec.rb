@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
+  before do
+    FactoryBot.create(:task)
+    FactoryBot.create(:second_task)
+  end
 
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
@@ -38,4 +42,13 @@ RSpec.describe Task, type: :system do
      end
   end
 
+  describe "タスク一覧画面" do
+    context 'タスク一覧画面に遷移した場合' do
+      it 'タスク一覧が作成日時順に並んでいること' do
+        visit tasks_path
+        click_on "確認", match: :first
+        expect(page).to have_content "Factoryで作ったデフォルトのコンテント２"
+      end
+    end
+  end
 end
