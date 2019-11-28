@@ -1,5 +1,7 @@
 <h1>投稿一覧</h1>
 
+  <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+
 <% @tasks.each do |task| %>
   <div><%= task.title %></div>
   <div><%= task.content %></div>
