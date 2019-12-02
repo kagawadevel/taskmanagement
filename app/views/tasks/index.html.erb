@@ -3,8 +3,9 @@
   <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
 
 <% @tasks.each do |task| %>
-  <div><%= task.title %></div>
+  <div><p>タイトル</p><%= task.title %></div>
   <div><%= task.content %></div>
+  <div><%= task.status %></div>
 
   <div>
     <%= link_to '確認', task_path(task.id), class: "btn btn-default" %>

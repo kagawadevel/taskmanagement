@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     if params[:sort_expired]
       @tasks = Task.all.order(limit: :desc)
     end
-    
+
   end
 
   def show
@@ -55,7 +55,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content)
+    params.require(:task).permit(:title, :content, :status)
   end
 
   def set_task
