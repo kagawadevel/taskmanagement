@@ -8,6 +8,17 @@ class TasksController < ApplicationController
       @tasks = Task.all.order(limit: :desc)
     end
 
+    if params[:task] && params[:task][:search]
+      if params[:task][:title].present? && params[:task][:status].present?
+        @tasks = Task.where("title LIKE ?", "%#{ params[:task][:title] }%").where(status: params[:task][:status])
+      elsif params[:task][:title].empty? && params[:task][:status].present?
+        @test = "テスト成功"
+        #binding.pry
+        #@tasks = Task.where(status: params[:task][:status])
+      elsif params[:task][:title].present? && params[:task][:status] == ""
+        @tasks = Task.where("title LIKE ?", "%#{ params[:task][:title] }%")
+      end
+    end
   end
 
   def show
@@ -55,7 +66,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :status)
+    params.require(:task).permit(:title, :content, :status, :search)
   end
 
   def set_task

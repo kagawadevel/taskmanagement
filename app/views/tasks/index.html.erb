@@ -2,8 +2,20 @@
 
   <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
 
+  <%= form_with( model: Task.new, local: true, url: tasks_path, method: 'get' ) do |f| %>
+    <%= f.label :title_search %>
+    <%= f.text_field :title %>
+    <%= f.label :status_search %>
+    <%= f.select :status, [["",""],["未着手",'未着手'], ["着手済み", '着手済み'], ["完了", '完了']] %>
+
+    <%= f.hidden_field :search, value: 'true' %>
+
+    <%= f.submit '指定した条件で検索する' %>
+
+  <% end %>
+
 <% @tasks.each do |task| %>
-  <div><p>タイトル</p><%= task.title %></div>
+  <div><%= task.title %></div>
   <div><%= task.content %></div>
   <div><%= task.status %></div>
 
