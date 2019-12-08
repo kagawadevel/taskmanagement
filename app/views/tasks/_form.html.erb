@@ -26,6 +26,11 @@
     <%= form.select :status, [["未着手",'未着手'], ["着手済み", '着手済み'], ["完了", '完了']]%>
   </div>
 
+  <div>
+    <%= form.label :優先順位 %><br>
+    <%= form.select :priority, Task.priorities.keys.to_a, {} %>
+  </div>
+
 
   <%= form.submit %>
 <% end %>
