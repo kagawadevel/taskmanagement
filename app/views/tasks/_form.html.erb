@@ -22,6 +22,11 @@
   </div>
 
   <div>
+    <%= form.label :終了期限 %>
+    <%= form.date_field :limit %>
+  </div>
+
+  <div>
     <%= form.label :ステータス %><br>
     <%= form.select :status, [["未着手",'未着手'], ["着手済み", '着手済み'], ["完了", '完了']]%>
   </div>

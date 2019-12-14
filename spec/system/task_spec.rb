@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe Task, type: :system do
   before do
     FactoryBot.create(:task)
-    FactoryBot.create(:second_task)
+    FactoryBot.create(:task, title: "Factorybotで作成したタイトル２", content: 'Factorybotで作成したコンテンツ２', created_at: Date.today-3, limit: Date.today+3, status: 'not_yet_arrived', priority: '高')
+    FactoryBot.create(:task, title: "Factorybotで作成したタイトル３", content: 'Factorybotで作成したコンテンツ３', created_at: Date.today-5, limit: Date.today-1, status: 'not_yet_arrived', priority: '高')
   end
 
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
       it '作成済みのタスクが表示されること' do
-        task = FactoryBot.create(:task, title: 'task')
         visit tasks_path
-        expect(page).to have_content 'task'
+        expect(page).to have_content 'タイトル１'
       end
     end
   end
@@ -47,7 +47,18 @@ RSpec.describe Task, type: :system do
       it 'タスク一覧が作成日時順に並んでいること' do
         visit tasks_path
         click_on "確認", match: :first
-        expect(page).to have_content "Factoryで作ったデフォルトのコンテント２"
+        expect(page).to have_content "Factorybotで作成したコンテンツ１"
+      end
+    end
+  end
+
+  describe "タスク一覧画面" do
+    context '終了期限でソートするをクリックした場合' do
+      it 'タスクが終了期限順に並んでいること' do
+        visit tasks_path
+        click_on "終了期限でソートする"
+        click_on "確認", match: :first
+        expect(page).to have_content "Factorybotで作成したコンテンツ１"
       end
     end
   end
