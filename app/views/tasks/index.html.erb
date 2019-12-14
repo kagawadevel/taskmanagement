@@ -26,4 +26,6 @@
     <%= link_to '削除', task, class: "btn btn-danger", method: :delete, data: { confirm: '削除してもいいですか？' } %>
   </div>
 
+  <%= paginate @tasks %>
+
 <% end %>
