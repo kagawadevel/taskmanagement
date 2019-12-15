@@ -4,7 +4,7 @@ class Task < ApplicationRecord
   validates :content, presence: true
   enum priority: {'高':0,'中':1,'低':2}
 
-  scope :sort_expired_desc, -> {order(created_at: :desc)}
+  scope :sort_expired_desc, -> {order(limit: :desc)}
   scope :sort_priority_asc, -> {order(priority: :asc)}
 
   scope :title_search, -> (title){ where("title LIKE ?", "%#{title}%") }

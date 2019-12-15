@@ -16,14 +16,24 @@
   <% end %>
 
 <% @tasks.each do |task| %>
-  <div><%= task.title %></div>
-  <div><%= task.content %></div>
-  <div><%= task.limit %></div>
-  <div><%= task.status %></div>
-  <div><%= task.priority %></div>
+  <div>
+    <p><strong>タイトル：</strong><%= task.title %></p>
+  </div>
+  <div>
+    <p><strong>内容：</strong><%= task.content %></p>
+  </div>
+  <div>
+    <p><strong>終了期限：</strong><%= task.limit %></p>
+  </div>
+  <div>
+    <p><strong>ステータス：</strong><%= task.status %></p>
+  </div>
+  <div>
+    <p><strong>優先順位：</strong><%= task.priority %></p>
+  </div>
 
   <div>
-    <%= link_to '確認', task_path(task.id), class: "btn btn-default" %>
+    <%= link_to '確認', task_path(task.id), class: "btn btn-info" %>
     <%= link_to '編集', edit_task_path(task.id), class: "btn btn-info" %>
     <%= link_to '削除', task, class: "btn btn-danger", method: :delete, data: { confirm: '削除してもいいですか？' } %>
   </div>
