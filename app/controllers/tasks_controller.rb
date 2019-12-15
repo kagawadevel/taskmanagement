@@ -5,18 +5,16 @@ class TasksController < ApplicationController
     @tasks = Task.all.order('created_at DESC').page(params[:page]).per(10)
 
     if params[:sort_expired]
-      @tasks = Task.all.order(limit: :desc).page(params[:page]).per(10)
+      @tasks = Task.all.sort_expired_desc.page(params[:page]).per(10)
     end
 
     if params[:task] && params[:task][:search]
       if params[:task][:title].present? && params[:task][:status].present?
-        @tasks = Task.where("title LIKE ?", "%#{ params[:task][:title] }%").where(status: params[:task][:status])
+        @tasks = Task.title_search(params[:task][:title]).status_search(params[:task][:status]).page(params[:page]).per(10)
       elsif params[:task][:title].empty? && params[:task][:status].present?
-        @test = "テスト成功"
-        #binding.pry
-        #@tasks = Task.where(status: params[:task][:status])
+        @tasks = Task.status_search(params[:task][:status]).page(params[:page]).per(10)
       elsif params[:task][:title].present? && params[:task][:status] == ""
-        @tasks = Task.where("title LIKE ?", "%#{ params[:task][:title] }%")
+        @tasks = Task.title_search(params[:task][:title]).page(params[:page]).per(10)
       end
     end
   end
