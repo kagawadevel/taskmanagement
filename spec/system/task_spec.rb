@@ -55,10 +55,11 @@ RSpec.describe Task, type: :system do
   describe "タスク一覧画面" do
     context '終了期限でソートするをクリックした場合' do
       it 'タスクが終了期限順に並んでいること' do
+        @task2 = FactoryBot.create(:task, title: "期限を超過したタスク", content: '期限を超過したタスク', created_at: Date.today-9, limit: Date.today-9, status: 'not_yet_arrived', priority: '高')
         visit tasks_path
         click_on "終了期限でソートする"
         click_on "確認", match: :first
-        expect(page).to have_content "Factorybotで作成したコンテンツ１"
+        expect(page).to have_content "超過"
       end
     end
   end

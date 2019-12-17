@@ -5,7 +5,7 @@ class TasksController < ApplicationController
     @tasks = Task.all.order('created_at DESC').page(params[:page]).per(10)
 
     if params[:sort_expired]
-      @tasks = Task.all.sort_expired_desc.page(params[:page]).per(10)
+      @tasks = Task.all.sort_expired_asc.page(params[:page]).per(10)
     end
 
     if params[:sort_priority]
