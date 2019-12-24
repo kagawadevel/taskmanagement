@@ -1,13 +1,43 @@
 <h1>投稿一覧</h1>
 
+  <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+  <%= link_to "優先順位ソートする", tasks_path(sort_priority: "true") %>
+
+  <%= form_with( model: Task.new, local: true, url: tasks_path, method: 'get' ) do |f| %>
+    <%= f.label :title_search %>
+    <%= f.text_field :title %>
+    <%= f.label :status_search %>
+    <%= f.select :status, [["",""],["未着手",'未着手'], ["着手済み", '着手済み'], ["完了", '完了']] %>
+
+    <%= f.hidden_field :search, value: 'true' %>
+
+    <%= f.submit '指定した条件で検索する' %>
+
+  <% end %>
+
 <% @tasks.each do |task| %>
-  <div><%= task.title %></div>
-  <div><%= task.content %></div>
+  <div>
+    <p><strong>タイトル：</strong><%= task.title %></p>
+  </div>
+  <div>
+    <p><strong>内容：</strong><%= task.content %></p>
+  </div>
+  <div>
+    <p><strong>終了期限：</strong><%= task.limit %></p>
+  </div>
+  <div>
+    <p><strong>ステータス：</strong><%= task.status %></p>
+  </div>
+  <div>
+    <p><strong>優先順位：</strong><%= task.priority %></p>
+  </div>
 
   <div>
-    <%= link_to '確認', task_path(task.id), class: "btn btn-default" %>
+    <%= link_to '確認', task_path(task.id), class: "btn btn-info" %>
     <%= link_to '編集', edit_task_path(task.id), class: "btn btn-info" %>
     <%= link_to '削除', task, class: "btn btn-danger", method: :delete, data: { confirm: '削除してもいいですか？' } %>
   </div>
+
+  <%= paginate @tasks %>
 
 <% end %>
