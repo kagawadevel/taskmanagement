@@ -10,6 +10,27 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header class="container">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 rounded-bottom">
+        <%= link_to 'タスク一覧', tasks_path,class: 'navbar-brand' %>
+        <div class="collapse navbar-collapse" id="Navbar">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><%= link_to "タスク作成", new_task_path ,class: 'nav-link' %></li>
+              <li class="nav-item">
+                <%= link_to "ユーザー作成", new_user_path ,class: 'nav-link'  %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログイン", new_session_path ,class: 'nav-link'  %>
+              </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+
+      <%= yield %>
+
+    </div>
   </body>
 </html>

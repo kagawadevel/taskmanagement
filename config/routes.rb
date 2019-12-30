@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'sessions/new'
+  get 'sessions/create'
+  get 'sessions/destroy'
   resources :users
 
   resources :tasks do
@@ -7,5 +10,7 @@ Rails.application.routes.draw do
       post :confirm
     end
   end
+
+  resources :sessions
 
 end
