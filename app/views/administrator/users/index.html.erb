@@ -1,0 +1,28 @@
+<h1>登録済みのユーザー</h1>
+
+<table class="table">
+
+  <thead>
+    <tr>id</tr>
+    <tr>名前</tr>
+    <tr>メールアドレス</tr>
+    <tr>登録日</tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+        <% if user.admin %>
+          <td>管理者権限<strong>あり</strong></td>
+        <% else %>
+          <td>管理者権限なし</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>

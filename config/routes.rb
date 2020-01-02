@@ -13,4 +13,8 @@ Rails.application.routes.draw do
 
   resources :sessions
 
+  namespace :administrator do
+    resources :users
+  end
+
 end
