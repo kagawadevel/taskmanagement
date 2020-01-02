@@ -16,19 +16,24 @@
         <div class="collapse navbar-collapse" id="Navbar">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item"><%= link_to "タスク作成", new_task_path ,class: 'nav-link' %></li>
+            <% if session[:user_id] == nil %>
               <li class="nav-item">
                 <%= link_to "ユーザー作成", new_user_path ,class: 'nav-link'  %>
               </li>
-                <% if session[:user_id] == nil %>
-                  <li class="nav-item">
-                    <%= link_to "ログイン", new_session_path ,class: 'nav-link'  %>
-                  </li>
-                <% end %>
-                <% if session[:user_id] != nil %>
-                  <li class="nav-item">
-                    <%= link_to "ログアウト", session_path(current_user.id), class: 'nav-link' , method: :delete %>
-                  </li>
-                <% end %>
+            <% end %>
+            <% if session[:user_id] == nil %>
+              <li class="nav-item">
+                <%= link_to "ログイン", new_session_path ,class: 'nav-link'  %>
+              </li>
+            <% end %>
+            <% if session[:user_id] != nil %>
+              <li class="nav-item">
+                <%= link_to "ログアウト", session_path(current_user.id), class: 'nav-link' , method: :delete %>
+              </li>
+              <li class="nav-item">
+                <%= "#{current_user.name}としてログインしています" %>
+              </li>
+            <% end %>
           </ul>
         </div>
       </nav>

@@ -9,7 +9,11 @@ class UsersController < ApplicationController
   end
 
   def new
+    if session[:user_id] != nil
+      redirect_to user_path(session[:user_id]), notice: 'すでにユーザーが作成されています'
+    else
     @user = User.new
+    end
   end
 
   def create

@@ -2,9 +2,11 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :require_login
   #before_action :not_current_user, only: [:index, :show, :edit, :update, :destroy]
+  before_action :currentuser_id, only: [:index]
 
   def index
-    @tasks = Task.all.order('created_at DESC').page(params[:page]).per(10)
+    current_user_id = @current_user_id
+    @tasks = Task.currentuser_task(current_user_id).order('created_at DESC').page(params[:page]).per(10)
 
     if params[:sort_expired]
       @tasks = Task.all.sort_expired_asc.page(params[:page]).per(10)
@@ -74,6 +76,10 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def currentuser_id
+    @current_user_id = current_user.id
   end
 
   #{#def not_current_user
