@@ -3,7 +3,7 @@ class Administrator::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :destroy]
 
   def index
-    @users = User.all.order(created_at: :desc)
+    @users = User.includes(:tasks).all.order(created_at: :desc)
   end
 
   def new
@@ -20,6 +20,11 @@ class Administrator::UsersController < ApplicationController
   end
 
   def show
+    if @user.tasks.present?
+      @tasks = @user.tasks
+    else
+      @tasks = nil
+    end
   end
 
   def edit
