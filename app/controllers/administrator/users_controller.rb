@@ -40,8 +40,13 @@ class Administrator::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to administrator_users_path, notice: "ユーザーを削除しました"
+    @admin_users = User.where(admin: true).count
+    if @admin_users == 1
+      redirect_to administrator_users_path, notice: "管理者権限ユーザーが１人しか存在しないので削除できません"
+    else
+      @user.destroy
+      redirect_to administrator_users_path, notice: "ユーザーを削除しました"
+    end
   end
 
   private
