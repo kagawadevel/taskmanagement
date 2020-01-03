@@ -1,0 +1,13 @@
+<h1>ユーザー詳細画面</h1>
+
+<div>
+  <p>ユーザー名: <%= @user.name %></p>
+  <p>メールアドレス: <%= @user.email %></p>
+  <% if @user.admin == true %>
+     <p>管理者権限: あり</p>
+  <% else %>
+    <p>管理者権限： なし</p>
+    <% end %>
+
+  <%= link_to "タスク一覧画面にもどる", administrator_users_path %>
+</div>

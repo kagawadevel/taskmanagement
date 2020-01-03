@@ -21,6 +21,9 @@
         <% else %>
           <td>管理者権限なし</td>
         <% end %>
+        <td><%= link_to '確認', administrator_user_path(user.id), class: "btn btn-info" %></td>
+        <td><%= link_to '編集', edit_administrator_user_path(user.id), class: "btn btn-info" %></td>
+        <td><%= link_to '削除', administrator_user_path(user.id) , class: "btn btn-danger", method: :delete, data: { confirm: '削除してもいいですか？' } %></td>
       </tr>
     <% end %>
   </tbody>
