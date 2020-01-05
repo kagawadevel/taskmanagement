@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :destroy, :update]
+  before_action :current_user?, only: [:show, :edit, :update]
 
 
   def index
@@ -48,6 +49,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def current_user?
+    redirect_to user_path(current_user.id), notice: 'ユーザーが違います' unless current_user == User.find(params[:id])
   end
 
 end

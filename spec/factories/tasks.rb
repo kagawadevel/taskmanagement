@@ -7,6 +7,7 @@ FactoryBot.define do
     limit { Date.today+5 }
     status { 'not_yet_arrived' }
     priority { '高' }
+    user_id { 1 }
   end
 
   factory :secondtask do
