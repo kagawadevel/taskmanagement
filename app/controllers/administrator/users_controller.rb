@@ -1,5 +1,5 @@
 class Administrator::UsersController < ApplicationController
-  before_action :admin_user
+  before_action :admin_user?
   before_action :set_user, only: [:show, :edit, :destroy]
 
   def index
@@ -51,8 +51,8 @@ class Administrator::UsersController < ApplicationController
 
   private
 
-  def admin_user
-    redirect_to(root_url) unless current_user.admin?
+  def admin_user?
+    raise Forbidden unless current_user.admin?
   end
 
   def user_params

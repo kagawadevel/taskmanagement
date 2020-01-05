@@ -10,4 +10,17 @@ class ApplicationController < ActionController::Base
   def require_login
     redirect_to new_session_path, notice: 'ログインしてください' unless logged_in?
   end
+
+  class Forbidden < ActionController::ActionControllerError
+  end
+
+  rescue_from Forbidden, with: :rescue403
+
+  private
+
+  def rescue403(e)
+    @exception = e
+    render template: 'errors/forbidden', status: 403
+  end
+
 end
