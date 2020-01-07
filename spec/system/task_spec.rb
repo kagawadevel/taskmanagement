@@ -2,9 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :system do
   before do
+    FactoryBot.create(:user)
     FactoryBot.create(:task)
     FactoryBot.create(:task, title: "Factorybotで作成したタイトル２", content: 'Factorybotで作成したコンテンツ２', created_at: Date.today-3, limit: Date.today+3, status: 'not_yet_arrived', priority: '高')
     FactoryBot.create(:task, title: "Factorybotで作成したタイトル３", content: 'Factorybotで作成したコンテンツ３', created_at: Date.today-5, limit: Date.today-1, status: 'not_yet_arrived', priority: '高')
+    visit sessions_new_url
+    fill_in 'メールアドレス：', with: 'testuser1@com'
+    fill_in 'パスワード：', with: 'password'
+    click_on 'ログインする'
   end
 
   describe 'タスク一覧画面' do
@@ -22,6 +27,8 @@ RSpec.describe Task, type: :system do
         visit new_task_path
         fill_in 'task_title', with: 'testtask01'
         fill_in 'task_content', with: 'testtesttest'
+        fill_in 'task_limit', with: "2020  /12/31"
+        click_on 'Create Task'
         click_on '登録する'
         expect(page).to have_content 'testtask01'
         expect(page).to have_content 'testtesttest'
@@ -33,8 +40,7 @@ RSpec.describe Task, type: :system do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示されたページに遷移すること' do
          visit new_task_path
-         task = Task.create!(title: 'test_title01', content: 'test_content02')
-
+         task = Task.create(title: 'test_title01', content: 'test_content02', user_id: 1)
          visit task_path(task.id)
          expect(page).to have_content 'test_title01'
          expect(page).to have_content 'test_content02'
