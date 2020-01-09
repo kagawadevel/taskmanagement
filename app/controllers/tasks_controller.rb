@@ -1,8 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
+  #before_action :not_current_user, only: [:index, :show, :edit, :update, :destroy]
+  before_action :currentuser_id, only: [:index]
 
   def index
-    @tasks = Task.all.order('created_at DESC').page(params[:page]).per(10)
+    current_user_id = @current_user_id
+    @tasks = Task.currentuser_task(current_user_id).order('created_at DESC').page(params[:page]).per(10)
 
     if params[:sort_expired]
       @tasks = Task.all.sort_expired_asc.page(params[:page]).per(10)
@@ -35,8 +39,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: "タスクを作成しました"
     else
@@ -61,7 +64,7 @@ class TasksController < ApplicationController
   end
 
   def confirm
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     render 'new' if @task.invalid?
   end
 
@@ -75,4 +78,12 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def currentuser_id
+    @current_user_id = current_user.id
+  end
+
+  #{#def not_current_user
+      # @task = Task.find(params[:id])
+      #redirect_to new_session_path, notice: 'ユーザーが違います' unless current_user.id == @task.user_id
+      #end}"
 end
