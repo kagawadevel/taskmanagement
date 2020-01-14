@@ -19,4 +19,6 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  resources :labels, only:[:new,:create,:edit,:update,:destroy]
+
 end

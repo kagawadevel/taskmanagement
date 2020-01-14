@@ -43,7 +43,8 @@ class Administrator::UsersController < ApplicationController
     if @user.destroy
       redirect_to administrator_users_path, notice: "ユーザーを削除しました"
     else
-      redirect_to administrator_users_path, notice: "#{@user.errors[:base]}"
+      redirect_to administrator_users_path
+      flash[:danger] = "ユーザーが１人なので削除できません"
     end
   end
 

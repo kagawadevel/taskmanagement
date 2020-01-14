@@ -36,6 +36,16 @@
     <%= form.select :priority, Task.priorities.keys.to_a, {} %>
   </div>
 
+  <div>
+    <%= form.label :label, "Category check" %>
+    <div>
+      <% Label.all.each do |label| %>
+        <%= form.check_box :label_ids, { multiple: true, checked: @task.labels.find_by(id: label.id).present?, include_hidden: false }, label[:id] %>
+        <label><%= label.title %></label>
+      <% end %>
+    </div>
+  </div>
+
 
   <%= form.submit %>
 <% end %>
