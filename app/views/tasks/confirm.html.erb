@@ -16,7 +16,12 @@
   <p>終了期限:<%= @task.limit %></p>
   <p>ステータス:<%= @task.status %></p>
   <p>優先順位:<%= @task.priority %></p>
-  <p>ラベル:<%= @task.label_ids %></p>
+  <% @labels = Label.where(id: params[:task][:label_ids]) %>
+  <p>ラベル：
+  <% @labels.each do |label| %>
+    <ui>・<%= label.title %></ui>
+  <% end %>
+  </p>
 
 
   <%= form.submit "登録する" %>

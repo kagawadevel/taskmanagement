@@ -40,9 +40,11 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-
+    @task_labels = @task.task_labels.build
+    binding.pry
     if @task.save
-      redirect_to tasks_path, notice: "タスクを作成しました"
+      flash[:success] ='タスクを作成しました'
+      redirect_to tasks_path
     else
       render 'new'
     end
@@ -52,8 +54,9 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task = Task.update(task_params)
-      redirect_to tasks_path, notice: "タスクを更新しました"
+    if @task.update(task_params)
+      flash[:success] ='タスクを更新しました'
+      redirect_to tasks_path
     else
       render 'edit'
     end
@@ -72,7 +75,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :limit, :status, :search, :priority, :user_id, label_ids: [])
+    params.require(:task).permit(:title, :content, :limit, :status, :search, :priority, {label_ids: []} )
   end
 
   def set_task
