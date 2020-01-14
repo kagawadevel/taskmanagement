@@ -40,6 +40,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
+
     if @task.save
       redirect_to tasks_path, notice: "タスクを作成しました"
     else
@@ -71,7 +72,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :limit, :status, :search, :priority, label_ids: [])
+    params.require(:task).permit(:title, :content, :limit, :status, :search, :priority, :user_id, label_ids: [])
   end
 
   def set_task

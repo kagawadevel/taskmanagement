@@ -11,9 +11,8 @@ class Task < ApplicationRecord
   scope :currentuser_task, -> (current_user_id){ where(user_id: current_user_id) }
 
   belongs_to :user
-  has_many :labels, through: :task_labels, source: :label
   has_many :task_labels, dependent: :destroy
-
+  has_many :labels, through: :task_labels, source: :label
   accepts_nested_attributes_for :task_labels
 
 end

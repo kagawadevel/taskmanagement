@@ -1,4 +1,5 @@
 <h1>タスク詳細画面</h1>
+<br><br>
 
   <div>
     <p>タスク名: <%= @task.title %></p>
@@ -6,6 +7,21 @@
     <p>終了期限: <%= @task.limit %></p>
     <p>ステータス: <%= @task.status %></p>
     <p>優先順位: <%= @task.priority %></p>
+    <p>ラベル</p>
+    <% labels.each do |label| %>
+        <li><%= label.title %></li>
+    <% end %>
 
-    <%= link_to "タスク一覧画面にもどる", tasks_path %>
+    <br>
+
+    <%= link_to "タスク一覧画面にもどる", tasks_path, class: "btn btn-info" %>
+    <br>
+    <br>
+    <%= link_to "新しくラベルを作成する", new_label_path, class: "btn btn-info" %>
+    <br>
+    <br>
+    <%= link_to 'このタスクを編集する', edit_task_path(@task.id), class: "btn btn-info" %>
+    <br>
+    <br>
+    <%= link_to 'このタスクを削除する', @task, class: "btn btn-danger", method: :delete, data: { confirm: '削除してもいいですか？' } %>
   </div>
