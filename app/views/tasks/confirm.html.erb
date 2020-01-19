@@ -9,7 +9,7 @@
   <%= form.hidden_field :status %>
   <%= form.hidden_field :priority %>
   <%= form.hidden_field :limit %>
-  <%= form.hidden_field :label_ids %>
+  <%= form.hidden_field :label_ids, :value => label.id %>
 
   <p>タスク名:<%= @task.title %></p>
   <p>タスク詳細:<%= @task.content %></p>
