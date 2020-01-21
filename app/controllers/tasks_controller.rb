@@ -14,7 +14,7 @@ class TasksController < ApplicationController
     end
 
     if params[:sort_priority]
-      @tasks = Task.all.sort_priority_asc.page(params[:page]).per(10)
+      @tasks = current_user.tasks.sort_priority_asc.page(params[:page]).per(10)
     end
 
     if params[:task] && params[:task][:search]
@@ -22,18 +22,18 @@ class TasksController < ApplicationController
       if params[:task][:title].present? && params[:task][:status].present?
         #タイトルもステータスもある場合
         #binding.pry
-        @tasks = Task.title_search(params[:task][:title]).status_search(params[:task][:status]).page(params[:page]).per(10)
+        @tasks = current_user.tasks.title_search(params[:task][:title]).status_search(params[:task][:status]).page(params[:page]).per(10)
       elsif params[:task][:title].empty? && params[:task][:status].present?
         #タイトルが無く、ステータスはある場合
         #binding.pry
-        @tasks = Task.status_search(params[:task][:status]).page(params[:page]).per(10)
+        @tasks = current_user.tasks.status_search(params[:task][:status]).page(params[:page]).per(10)
       elsif params[:task][:title].present? && params[:task][:status] == ""
         #タイトルがあり、ステータスは無い場合
         #binding.pry
-        @tasks = Task.title_search(params[:task][:title]).page(params[:page]).per(10)
+        @tasks = current_user.tasks.title_search(params[:task][:title]).page(params[:page]).per(10)
       elsif params[:task][:label_ids].present?
         #binding.pry
-        @tasks = Task.joins(:task_labels).where('task_labels.label_id = ?', params[:task][:label_ids]).page(params[:page]).per(10)
+        @tasks = current_user.tasks.joins(:task_labels).where('task_labels.label_id = ?', params[:task][:label_ids]).page(params[:page]).per(10)
       end
     end
   end
