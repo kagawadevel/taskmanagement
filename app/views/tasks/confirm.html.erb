@@ -10,9 +10,8 @@
   <%= form.hidden_field :priority %>
   <%= form.hidden_field :limit %>
 
-  <% params[:task][:label_ids].each do |ids| %>
-    <!-- binding.pry -->
-    <%= form.hidden_field 'label_ids[]', value: ids %>
+  <% @task.label_ids.each do |id| %>
+    <%= form.hidden_field :label_ids, multiple: true, value: id %>
   <% end %>
 
   <p>タスク名:<%= @task.title %></p>
