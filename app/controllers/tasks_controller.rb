@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   def index
     current_user_id = @current_user_id
     @tasks = Task.currentuser_task(current_user_id).order('created_at DESC').page(params[:page]).per(10)
+    @labels = Label.where(user_id: current_user_id)
 
     if params[:sort_expired]
       @tasks = Task.all.sort_expired_asc.page(params[:page]).per(10)
@@ -17,12 +18,22 @@ class TasksController < ApplicationController
     end
 
     if params[:task] && params[:task][:search]
+      #binding.pry
       if params[:task][:title].present? && params[:task][:status].present?
+        #タイトルもステータスもある場合
+        #binding.pry
         @tasks = Task.title_search(params[:task][:title]).status_search(params[:task][:status]).page(params[:page]).per(10)
       elsif params[:task][:title].empty? && params[:task][:status].present?
+        #タイトルが無く、ステータスはある場合
+        #binding.pry
         @tasks = Task.status_search(params[:task][:status]).page(params[:page]).per(10)
       elsif params[:task][:title].present? && params[:task][:status] == ""
+        #タイトルがあり、ステータスは無い場合
+        #binding.pry
         @tasks = Task.title_search(params[:task][:title]).page(params[:page]).per(10)
+      elsif params[:task][:label_ids].present?
+        #binding.pry
+        @tasks = Task.joins(:task_labels).where('task_labels.label_id = ?', params[:task][:label_ids]).page(params[:page]).per(10)
       end
     end
   end
