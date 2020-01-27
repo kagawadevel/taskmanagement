@@ -28,7 +28,7 @@ RSpec.describe Task, type: :system do
         fill_in 'task_title', with: 'testtask01'
         fill_in 'task_content', with: 'testtesttest'
         fill_in 'task_limit', with: "2020  /12/31"
-        click_on 'Create Task'
+        click_on '登録する'
         click_on '登録する'
         expect(page).to have_content 'testtask01'
         expect(page).to have_content 'testtesttest'
