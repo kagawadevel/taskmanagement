@@ -32,7 +32,9 @@ RSpec.describe 'ラベル登録機能', type: :system do
           visit new_task_path
           fill_in 'task_title', with: 'testtask1'
           fill_in 'task_content', with: 'testtaasktitle1'
-          fill_in 'task_limit', with: "2020  /12/31"
+          select "2020", from: "task_limit_1i"
+          select "12", from: "task_limit_2i"
+          select "31", from: "task_limit_3i"
           check "テストラベル"
           click_on '登録する'
           click_on '登録する'
