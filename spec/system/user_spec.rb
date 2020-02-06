@@ -43,6 +43,7 @@ RSpec.describe User, type: :system do
                           user_id: 1)
 
         FactoryBot.create(:task,
+                          id: 2,
                           title: "テストユーザー２作成タスクタイトル",
                           content: 'テストユーザー２作成タスクコンテンツ',
                           user_id: 2)

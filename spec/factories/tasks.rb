@@ -1,6 +1,7 @@
 FactoryBot.define do
 
   factory :task do
+    id {1}
     title { 'Factorybotで作成したタイトル１' }
     content { 'Factorybotで作成したコンテンツ１' }
     created_at { Date.today-1 }
