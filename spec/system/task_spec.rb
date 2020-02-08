@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :system do
   before do
     FactoryBot.create(:user)
-    FactoryBot.create(:task)
+    FactoryBot.create(:task, id: 2)
     FactoryBot.create(:task, id: 10, title: "Factorybotで作成したタイトル２", content: 'Factorybotで作成したコンテンツ２', created_at: Date.today-3, limit: Date.today+3, status: 'not_yet_arrived', priority: '高')
     FactoryBot.create(:task, id: 11, title: "Factorybotで作成したタイトル３", content: 'Factorybotで作成したコンテンツ３', created_at: Date.today-5, limit: Date.today-1, status: 'not_yet_arrived', priority: '高')
     visit sessions_new_url
@@ -42,7 +42,7 @@ RSpec.describe Task, type: :system do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示されたページに遷移すること' do
          visit new_task_path
-         task = Task.create(title: 'test_title01', content: 'test_content02', user_id: 1)
+         task = Task.create(id: 3, title: 'test_title01', content: 'test_content02', user_id: 1)
          visit task_path(task.id)
          expect(page).to have_content 'test_title01'
          expect(page).to have_content 'test_content02'

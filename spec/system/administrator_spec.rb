@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :system do
 
   before do
-    FactoryBot.create(:user, id: 3, name: "kanrisya", email: "kanrisya@com", admin: true)
-    FactoryBot.create(:user)
+    FactoryBot.create(:user, id: 5, name: "kanrisya", email: "kanrisya@com", admin: true)
+    FactoryBot.create(:user, id: 17)
   end
 
   describe '管理者権限でログインしているとき' do
@@ -40,7 +40,7 @@ RSpec.describe User, type: :system do
         fill_in 'パスワード再入力', with: 'password'
         check '管理者権限'
         click_on '送信'
-        FactoryBot.create(:task, user_id: 3)
+        FactoryBot.create(:task, user_id: 5)
         click_on "確認", match: :first
         expect(page).to have_content 'ユーザー詳細画面'
         end
