@@ -1,0 +1,36 @@
+<h1>ユーザー作成</h1>
+
+<%=form_with(model: @user, local: true, url:  administrator_users_path, method: :post) do |f| %>
+
+
+
+  <div>
+    <%= f.label :name, 'ユーザー名' %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email, 'メールアドレス'%>
+    <%= f.text_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password, "パスワード" %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "パスワード再入力" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= f.label :admin, "管理者権限" %>
+    <%= f.check_box(:admin, {}, checked_value = "true", unchecked_value = "false" ) %>
+  </div>
+
+  <div>
+    <%= f.submit '送信' %>
+  </div>
+
+<% end %>

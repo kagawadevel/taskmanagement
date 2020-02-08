@@ -10,13 +10,25 @@
   <%= form.hidden_field :priority %>
   <%= form.hidden_field :limit %>
 
+  <% @task.label_ids.each do |id| %>
+    <%= form.hidden_field :label_ids, multiple: true, value: id %>
+  <% end %>
+
   <p>タスク名:<%= @task.title %></p>
   <p>タスク詳細:<%= @task.content %></p>
   <p>終了期限:<%= @task.limit %></p>
   <p>ステータス:<%= @task.status %></p>
   <p>優先順位:<%= @task.priority %></p>
+  <% @labels = Label.where(id: params[:task][:label_ids]) %>
+  <p>ラベル：
+  <% @labels.each do |label| %>
+    <ui>・<%= label.title %></ui>
+  <% end %>
+  </p>
+
 
   <%= form.submit "登録する" %>
+
 <% end %>
 
 <%= form_with(model: @task, url: new_task_path, local: true, method: 'get') do |form| %>
@@ -25,6 +37,7 @@
   <%= form.hidden_field :status %>
   <%= form.hidden_field :priority %>
   <%= form.hidden_field :limit %>
+  <%= form.hidden_field :label_ids %>
 
   <%= form.submit "戻る", name: 'back' %>
 <% end %>

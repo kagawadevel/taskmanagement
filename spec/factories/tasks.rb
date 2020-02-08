@@ -1,12 +1,14 @@
 FactoryBot.define do
 
   factory :task do
+    id {1}
     title { 'Factorybotで作成したタイトル１' }
     content { 'Factorybotで作成したコンテンツ１' }
     created_at { Date.today-1 }
     limit { Date.today+5 }
     status { 'not_yet_arrived' }
     priority { '高' }
+    user_id { 1 }
   end
 
   factory :secondtask do

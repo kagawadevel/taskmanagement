@@ -23,7 +23,7 @@
 
   <div>
     <%= form.label :終了期限 %>
-    <%= form.date_field :limit %>
+    <%= form.date_select :limit, {}  %>
   </div>
 
   <div>
@@ -36,7 +36,15 @@
     <%= form.select :priority, Task.priorities.keys.to_a, {} %>
   </div>
 
-
+  <div>
+    <%= form.label :label, "ラベル" %>
+    <div>
+      <% labels.each do |label| %>
+          <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false}, label[:id]%>
+          <label><%= label.title %></label>
+      <% end %>
+    </div>
+  </div>
   <%= form.submit %>
 <% end %>
 <br>

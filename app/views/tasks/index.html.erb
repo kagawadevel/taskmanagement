@@ -4,16 +4,20 @@
   <%= link_to "優先順位ソートする", tasks_path(sort_priority: "true") %>
 
   <%= form_with( model: Task.new, local: true, url: tasks_path, method: 'get' ) do |f| %>
-    <%= f.label :title_search %>
+    <%= f.label :title_search, "タイトルで検索" %>
     <%= f.text_field :title %>
-    <%= f.label :status_search %>
+
+    <%= f.label :status_search, "ステータスで検索" %>
     <%= f.select :status, [["",""],["未着手",'未着手'], ["着手済み", '着手済み'], ["完了", '完了']] %>
 
+    <%= f.label :label_search, "ラベルで検索" %>
+    <%= f.collection_select :label_ids, @labels, :id, :title, {include_blank: 'ラベルを選んでください'} %>
+
     <%= f.hidden_field :search, value: 'true' %>
-
     <%= f.submit '指定した条件で検索する' %>
-
   <% end %>
+
+<br>
 
 <% @tasks.each do |task| %>
   <div>
@@ -38,6 +42,6 @@
     <%= link_to '削除', task, class: "btn btn-danger", method: :delete, data: { confirm: '削除してもいいですか？' } %>
   </div>
 
-  <%= paginate @tasks %>
-
 <% end %>
+
+<%= paginate @tasks %>
